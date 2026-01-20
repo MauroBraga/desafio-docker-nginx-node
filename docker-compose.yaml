@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    restart: always
+    ports: 
+      - '8080:80'
+    depends_on:
+      - web
+    networks:
+      - desafio-network
+  web:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    container_name: web
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh npm start
+    restart: always
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./node:/usr/src/app
+    ports:
+    - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - desafio-network
+
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true  
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=laravel
+    ports:
+      - "3306:3306"
+    networks:
+      - desafio-network
+
+networks:
+  desafio-network:
+    driver: bridge
