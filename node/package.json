@@ -1,0 +1,24 @@
+{
+  "name": "desafio-docker-nginx-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MauroBraga/desafio-docker-nginx-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MauroBraga/desafio-docker-nginx-node/issues"
+  },
+  "homepage": "https://github.com/MauroBraga/desafio-docker-nginx-node#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
